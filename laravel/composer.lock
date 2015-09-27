@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b95509c4297beedab12caf36b56ed88e",
-    "content-hash": "855da04a82391d78592afe9c8a2b1e9f",
+    "hash": "db0541cd59b2e89e28117704a17c3a94",
+    "content-hash": "45affc02339cf4838df99c28309acd27",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1845,6 +1845,51 @@
                 "test"
             ],
             "time": "2015-05-11 14:41:42"
+        },
+        {
+            "name": "itsgoingd/clockwork",
+            "version": "v1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itsgoingd/clockwork.git",
+                "reference": "2e3b13d49942d3338d69e77f7d214ee49e0c8e9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/2e3b13d49942d3338d69e77f7d214ee49e0c8e9e",
+                "reference": "2e3b13d49942d3338d69e77f7d214ee49e0c8e9e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "psr/log": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Clockwork": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "itsgoingd",
+                    "email": "itsgoingd@luzer.sk",
+                    "homepage": "http://twitter.com/itsgoingd"
+                }
+            ],
+            "description": "Server-side component of Clockwork, a Chrome extension for PHP development",
+            "homepage": "http://github.com/itsgoingd/clockwork",
+            "keywords": [
+                "debugging",
+                "laravel",
+                "logging",
+                "profiling"
+            ],
+            "time": "2015-09-01 00:55:38"
         },
         {
             "name": "laracasts/generators",

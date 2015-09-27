@@ -6,6 +6,14 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+
+    public function bootstrap() {
+        parent::bootstrap(); // should have loaded environment detection now.
+
+        if (env('APP_DEBUG'))
+            $this->pushMiddleware('Clockwork\Support\Laravel\ClockworkMiddleware');
+    }
+    
     /**
      * The application's global HTTP middleware stack.
      *

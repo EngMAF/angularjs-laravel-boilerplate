@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
+	// Clockwork::info('Message text.'); // 'Message text.' appears in Clockwork log tab
     return view('welcome');
 });

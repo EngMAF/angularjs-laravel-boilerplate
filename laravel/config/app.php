@@ -145,6 +145,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        (!env('APP_DEBUG')) ?: Clockwork\Support\Laravel\ClockworkServiceProvider::Class,
+        (env('APP_ENV') != 'local') ?: Laracasts\Generators\GeneratorsServiceProvider::Class,
         // Sorskod\Larasponse\LarasponseServiceProvider::Class,
 
     ],
@@ -195,6 +197,9 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        (!env('APP_DEBUG')) ?: 'Clockwork' => Clockwork\Support\Laravel\Facade::Class,
+
 
     ],
 
