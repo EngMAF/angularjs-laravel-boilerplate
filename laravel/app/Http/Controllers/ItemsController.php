@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class items extends Controller
+use App\Item;
+use App\Transformers\ItemTransformer;
+
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +18,7 @@ class items extends Controller
      */
     public function index()
     {
-        //
+        return ItemTransformer::multiple( Item::all() );
     }
 
     /**
@@ -47,7 +50,7 @@ class items extends Controller
      */
     public function show($id)
     {
-        //
+        return ItemTransformer::single( Item::find($id) );
     }
 
     /**
