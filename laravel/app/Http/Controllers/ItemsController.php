@@ -5,42 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Item;
 use App\Transformers\ItemTransformer;
+use App\Http\Requests\ItemRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\MessageBag;
 
-class ItemsController extends Controller
+class ItemsController extends ApiBaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ItemTransformer::multiple( Item::all() );
+        $limit = ($request->limit > 10 || is_null($request->limit)) ? 10: $request->limit;
+        $items = Item::paginate( $limit );
+        $data = ItemTransformer::multiple( $items );
+        return $this->RespondWithPagination($items, $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -50,18 +35,22 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        return ItemTransformer::single( Item::find($id) );
+        $item = Item::find($id);
+        if($item)
+            return $this->respond( ItemTransformer::single( $item ));
+            
+        return $this->respondWithError( ['message' => 'item doesn\'t exists'] );
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function store(ItemRequest $request)
     {
-        //
+        return Item::create($request->only(['name', 'description']));
     }
 
     /**
@@ -71,9 +60,13 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ItemRequest $request, $id)
     {
-        //
+        // dd('sss');
+        $item = Item::find($id)
+                    ->fill($request->only(['name', 'description']));
+        $item->save();
+        return $item;
     }
 
     /**
@@ -84,6 +77,13 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        if(!$item)
+            return $this->respondWithError(['message' => 'item doesn\'t exists']);
+        
+        $item->delete();
+        return $this->respond(['message' => 'item has been deleted',
+                                'data'    => $item,
+        ]);
     }
 }
