@@ -12,22 +12,31 @@ abstract class ApiBaseController extends Controller
 		return Response::json($data, $status_code);
 	}
 
+	public static function respondWithSuccess($data)
+	{
+		return static::respond([
+            'status_code' 	=> 200,
+            'body'			=> $data,
+        ], 200);
+	}
+
 	public static function respondWithError($messages)
 	{
 		return static::respond([
-            'errors' => $messages,
+            'status_code' 	=> 404,
+            'errors' 		=> $messages,
         ], 404);
 	}
 
 	public static function respondWithPagination($collection, $data)
 	{
-        return static::respond([
-            'data'      => $data,
+        return static::respondWithSuccess([
             'paginator' => [
                 'total' 		=> $collection->total(),
                 'total_pages' 	=> ceil($collection->total() / $collection->perPage()),
                 'current_page' 	=> $collection->currentPage(),
-            ]
+            ],
+            'data'      => $data,
         ]);
 
 	}

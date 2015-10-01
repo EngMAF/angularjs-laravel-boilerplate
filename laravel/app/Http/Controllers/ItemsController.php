@@ -37,7 +37,7 @@ class ItemsController extends ApiBaseController
     {
         $item = Item::find($id);
         if($item)
-            return $this->respond( ItemTransformer::single( $item ));
+            return $this->respondWithSuccess( ItemTransformer::single( $item ));
             
         return $this->respondWithError( ['message' => 'item doesn\'t exists'] );
     }
@@ -50,7 +50,11 @@ class ItemsController extends ApiBaseController
      */
     public function store(ItemRequest $request)
     {
-        return Item::create($request->only(['name', 'description']));
+        $item = Item::create($request->only(['name', 'description']));
+        return $this->respondWithSuccess([
+            'message'   => 'item has been created',
+            ItemTransformer::single( $item )
+        ]);
     }
 
     /**
@@ -62,11 +66,13 @@ class ItemsController extends ApiBaseController
      */
     public function update(ItemRequest $request, $id)
     {
-        // dd('sss');
         $item = Item::find($id)
                     ->fill($request->only(['name', 'description']));
         $item->save();
-        return $item;
+        return $this->respondWithSuccess([ 
+            'message'   => 'item has been updated',
+            'data'      => ItemTransformer::single( $item )
+        ]);
     }
 
     /**
@@ -82,8 +88,9 @@ class ItemsController extends ApiBaseController
             return $this->respondWithError(['message' => 'item doesn\'t exists']);
         
         $item->delete();
-        return $this->respond(['message' => 'item has been deleted',
-                                'data'    => $item,
+        return $this->respondWithSuccess([
+            'message' => 'item has been deleted',
+            'data'    => $item,
         ]);
     }
 }

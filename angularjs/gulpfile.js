@@ -20,7 +20,7 @@ gulp.task('index', function() {
  
   return gulp.src('src/index.html')
     .pipe(gp_minifyHTML(html_opts))
-    .pipe(gulp.dest('../public_html'));
+    .pipe(gulp.dest('../public'));
 });
  
 gulp.task('html', function() {
@@ -31,7 +31,7 @@ gulp.task('html', function() {
  
   return gulp.src('src/views/**/*.html')
     .pipe(gp_minifyHTML(html_opts))
-    .pipe(gulp.dest('../public_html/public/views'));
+    .pipe(gulp.dest('../public/assets/views'));
 });
 
 gulp.task('js', function(){
@@ -46,20 +46,19 @@ gulp.task('js', function(){
     	])
         .pipe(gp_concat('app.js'))
         .pipe(gp_uglify())
-        .pipe(gulp.dest('../public_html/public/js'));
+        .pipe(gulp.dest('../public/assets/js'));
 });
 
 gulp.task('less', function() {
   gulp.src([
         'bower_components/bootstrap/dist/css/bootstrap.css',
         'bower_components/font-awesome/css/font-awesome.css',
-        'bower_components/yamm3/yamm/yamm.css',
         'src/css/main.less'
     ])
     .pipe(gp_concat('layout.css'))
     .pipe(gp_less())
     .pipe(gp_minifyCss())
-    .pipe(gulp.dest('../public_html/public/css'));
+    .pipe(gulp.dest('../public/assets/css'));
 });
 
 gulp.task('img', function () {
@@ -69,15 +68,15 @@ gulp.task('img', function () {
             svgoPlugins: [{removeViewBox: false}],
             use: [gp_pngquant   ()]
         }))
-        .pipe(gulp.dest('../public_html/public/img'));
+        .pipe(gulp.dest('../public/assets/img'));
 });
 
 gulp.task('icons', function() { 
     gulp.src('bower_components/bootstrap/fonts/**.*') 
-        .pipe(gulp.dest('../public_html/public/fonts/')); 
+        .pipe(gulp.dest('../public/assets/fonts/')); 
 
     return gulp.src('bower_components/font-awesome/fonts/**.*') 
-        .pipe(gulp.dest('../public_html/public/fonts/')); 
+        .pipe(gulp.dest('../public/assets/fonts/')); 
 
 });
 
@@ -92,7 +91,7 @@ gulp.task('fonts', function(){
     .on('glyphs', function(glyphs, options) {
         console.log(glyphs, options);
       })
-    .pipe(gulp.dest('../public_html/public/fonts/GE_SS_Two_Light/'));
+    .pipe(gulp.dest('../public/assets/fonts/GE_SS_Two_Light/'));
 });
 
 
