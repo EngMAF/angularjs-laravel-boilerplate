@@ -1,0 +1,20 @@
+{
+  "name": "pool",
+  "version": "0.0.0",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular-route": "~1.4.3",
+    "angular": "~1.4.3",
+    "font-awesome": "~4.4.0",
+    "yamm3": "~1.1.0"
+  }
+}
