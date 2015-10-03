@@ -42,16 +42,17 @@ gulp.task('js', function(){
         'bower_components/bootstrap/dist/js/bootstrap.js',
         'src/js/script.js',
         'src/js/app.js',
-        'src/js/controller/Controllers.js'
-    	])
-        .pipe(gp_concat('app.js'))
-        .pipe(gp_uglify())
-        .pipe(gulp.dest('../public/assets/js'));
+        'src/js/services/*',
+        'src/js/controllers/*',
+	])
+    .pipe(gp_concat('app.js'))
+    .pipe(gp_uglify())
+    .pipe(gulp.dest('../public/assets/js'));
 });
 
 gulp.task('less', function() {
   gulp.src([
-        'bower_components/bootstrap/dist/css/bootstrap.css',
+        'bower_components/bootswatch/slate/bootstrap.css',
         'bower_components/font-awesome/css/font-awesome.css',
         'src/css/main.less'
     ])
